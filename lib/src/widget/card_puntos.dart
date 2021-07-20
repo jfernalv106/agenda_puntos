@@ -1,8 +1,10 @@
+import 'package:agenda_puntos/src/controler/input_punto_controller.dart';
 import 'package:agenda_puntos/src/model/punto.dart';
 import 'package:agenda_puntos/src/widget/card_fotos.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:agenda_puntos/src/util/util.dart' as Util;
+import 'package:get/get.dart';
 
 class CardPuntos extends StatelessWidget {
   final List<Punto> puntos;
@@ -24,7 +26,7 @@ class CardPuntos extends StatelessWidget {
     });
     return Container(
       width: _screamsize.width,
-      height: _screamsize.height * 0.99,
+      height: _screamsize.height * 0.9,
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: <Color>[
           Color.fromRGBO(189, 189, 189, 0.8549019607843137),
@@ -43,8 +45,9 @@ class CardPuntos extends StatelessWidget {
   }
 
   Widget _tarjeta(BuildContext context, Punto punto) {
+    final bloc = Get.find<InputController>();
     final tarjeta = Container(
-        margin: EdgeInsets.only(right: 5, top: 5),
+        margin: EdgeInsets.only(right: 5, top: 1),
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: <Color>[
             Color.fromRGBO(7, 7, 7, 0.8549019607843137),
@@ -124,8 +127,8 @@ class CardPuntos extends StatelessWidget {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, 'mapa_punto',
-                          arguments: punto);
+                      bloc.changePunto(punto);
+                      Navigator.pushNamed(context, 'mapa_punto');
                     }),
                 SizedBox(
                   width: 10,

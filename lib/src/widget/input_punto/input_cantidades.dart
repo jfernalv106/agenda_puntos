@@ -62,12 +62,20 @@ class _InputCantidadesState extends State<InputCantidades> {
                       })),
             ],
           ),
+          Divider(
+            indent: 1.0,
+            color: Colors.deepPurpleAccent,
+          ),
           Container(
               margin: EdgeInsets.only(top: 8),
-              height: 200.0,
+              height: 162.0,
               child: SafeArea(
                 child: lista(bloc),
               )),
+          Divider(
+            indent: 1.0,
+            color: Colors.deepPurpleAccent,
+          ),
           Container(
               margin: EdgeInsets.only(top: 6),
               child: SafeArea(

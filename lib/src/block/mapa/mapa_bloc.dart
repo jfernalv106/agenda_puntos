@@ -28,6 +28,10 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
     this._mapController?.animateCamera(cameraUpdate);
   }
 
+  void cierraMapa() {
+    this._mapController.dispose();
+  }
+
   @override
   Stream<MapaState> mapEventToState(MapaEvent event) async* {
     if (event is OnMapaListo) {

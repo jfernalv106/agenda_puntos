@@ -1,13 +1,16 @@
+import 'package:agenda_puntos/src/controler/input_punto_controller.dart';
 import 'package:agenda_puntos/src/provider/punto_provider.dart';
 import 'package:agenda_puntos/src/widget/card_puntos.dart';
 import 'package:agenda_puntos/src/widget/menu_lateral.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PuntosPage extends StatelessWidget {
   final puntoProvider = new PuntoProvider();
 
   @override
   Widget build(BuildContext context) {
+    Get.put(InputController());
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(

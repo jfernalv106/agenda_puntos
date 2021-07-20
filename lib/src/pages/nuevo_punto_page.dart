@@ -2,9 +2,11 @@ import 'package:agenda_puntos/src/block/ubicacion/ubicacion_bloc.dart';
 import 'package:agenda_puntos/src/controler/input_punto_controller.dart';
 import 'package:agenda_puntos/src/widget/input_punto/btn_foto.dart';
 import 'package:agenda_puntos/src/widget/input_punto/btn_guardar.dart';
+import 'package:agenda_puntos/src/widget/input_punto/inpunt_pagado.dart';
 import 'package:agenda_puntos/src/widget/input_punto/inpunt_ubicacion.dart';
 import 'package:agenda_puntos/src/widget/input_punto/input_cantidades.dart';
 import 'package:agenda_puntos/src/widget/input_punto/input_nombre.dart';
+import 'package:agenda_puntos/src/widget/input_punto/input_observaciones.dart';
 import 'package:agenda_puntos/src/widget/input_punto/input_tipo.dart';
 import 'package:agenda_puntos/src/widget/input_punto/input_valor_metro.dart';
 import 'package:agenda_puntos/src/widget/menu_lateral.dart';
@@ -35,7 +37,6 @@ class _NvoPuntoPageState extends State<NvoPuntoPage> {
   Widget build(BuildContext context) {
     final _screamsize = MediaQuery.of(context).size;
     final miUbicacionBloc = context.read<UbicacionBloc>();
-    final bloc = Get.put(InputController());
 
     cargaCordenadas(miUbicacionBloc);
     //
@@ -51,17 +52,21 @@ class _NvoPuntoPageState extends State<NvoPuntoPage> {
       ),
       drawer: MenuLateral(),
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 InputNombre(),
                 InputUbicacion(),
+                InpuntObservaciones(),
+                InputValorPagado(),
                 Row(
                   children: <Widget>[
-                      InputTipo(),
+                    InputTipo(),
                     Container(
                       width: _screamsize.width * 0.4,
                       child: InputValorMetro(),
@@ -77,7 +82,7 @@ class _NvoPuntoPageState extends State<NvoPuntoPage> {
   }
 
   cargaCordenadas(UbicacionBloc miUbicacionBloc) async {
-    final bloc = Get.find<InputController>();
+    final bloc = Get.put(InputController());
     await bloc.changeLatitud(miUbicacionBloc.state.ubicacion.latitude);
     await bloc.changeLongitud(miUbicacionBloc.state.ubicacion.longitude);
   }

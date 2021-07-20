@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class InputController extends GetxController with Validador {
-  final punto = new Punto().obs;
+  final puntoController = new Punto().obs;
   final fotoss = new List<String>().obs;
   final cantidadess = new List<double>().obs;
   final nombreController = ''.obs;
@@ -65,6 +65,7 @@ class InputController extends GetxController with Validador {
   addFotos(String valor) => fotosController.add(valor);
   changeLatitud(double valor) => latitudController(valor);
   changeLongitud(double valor) => longitudController(valor);
+  changePunto(Punto punto) => puntoController(punto);
 
   String get nombre => nombreController.value;
   String get ubicacion => ubicacionController.value;
@@ -77,12 +78,12 @@ class InputController extends GetxController with Validador {
   List<String> get fotos => fotosController.value;
   double get latitud => latitudController.value;
   double get longitud => longitudController.value;
+  Punto get punto => puntoController.value;
 
   @override
   void onInit() {
     // Simulating obtaining the user name from some local storage
-
-    punto.value = new Punto();
+    puntoController(new Punto());
     super.onInit();
   }
 
@@ -111,79 +112,79 @@ class InputController extends GetxController with Validador {
   }
 
   void changePuntoCantidad(double cantidad) {
-    this.punto.update((val) {
+    this.puntoController.update((val) {
       val?.cantidad.add(cantidad);
     });
   }
 
   void removePuntoCantidad(double cantidad) {
-    this.punto.update((val) {
+    this.puntoController.update((val) {
       val?.cantidad.remove(cantidad);
     });
   }
 
   void changePuntoFotos(String foto) {
-    this.punto.update((val) {
+    this.puntoController.update((val) {
       val?.fotos?.add(foto);
     });
   }
 
   void removePuntoFotos(String foto) {
-    this.punto.update((val) {
+    this.puntoController.update((val) {
       val?.fotos.remove(foto);
     });
   }
 
   void changePuntoTipo(String tipo) {
-    this.punto.update((val) {
+    this.puntoController.update((val) {
       val?.tipo = tipo;
     });
   }
 
   void changePuntoPersona(String persona) {
-    this.punto.update((val) {
+    this.puntoController.update((val) {
       val?.persona = persona;
     });
   }
 
   void changePuntoLugar(String lugar) {
-    this.punto.update((val) {
+    this.puntoController.update((val) {
       val?.lugar = lugar;
     });
   }
 
   void changePuntoValorMetro(String valorMetro) {
-    this.punto.update((val) {
+    this.puntoController.update((val) {
       val?.valorMetro = num.tryParse(valorMetro);
     });
   }
 
   void changePuntoLatitud(double latitud) {
-    this.punto.update((val) {
+    this.puntoController.update((val) {
       val?.latitud = latitud;
     });
   }
 
   void changePuntoLongitud(double longitud) {
-    this.punto.update((val) {
+    this.puntoController.update((val) {
       val?.longitud = longitud;
     });
   }
 
   void changePuntoPagado(int pagado) {
-    this.punto.update((val) {
+    this.puntoController.update((val) {
       val?.pagado = pagado;
     });
   }
 
   void changePuntoObservaciones(String observaciones) {
-    this.punto.update((val) {
+    this.puntoController.update((val) {
       val?.observaciones = observaciones;
     });
   }
 
   void limpia() {
-    punto.value = new Punto();
+    puntoController.value = new Punto();
     fotoss.clear();
     cantidadess.clear();
     nombreController('');

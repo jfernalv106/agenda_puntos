@@ -1,10 +1,12 @@
 import 'package:agenda_puntos/src/block/mapa/mapa_bloc.dart';
 import 'package:agenda_puntos/src/block/ubicacion/ubicacion_bloc.dart';
+import 'package:agenda_puntos/src/controler/input_punto_controller.dart';
 import 'package:agenda_puntos/src/model/punto.dart';
 import 'package:agenda_puntos/src/widget/widget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapaPunto extends StatefulWidget {
@@ -16,18 +18,21 @@ class _MapaPuntoState extends State<MapaPunto> {
   @override
   void initState() {
     context.read<UbicacionBloc>().iniciarSeguimiento();
+    //context.read<MapaBloc>().
     super.initState();
   }
-/**
+
   @override
   void dispose() {
     context.read<UbicacionBloc>().cancelarSeguimiento();
+    context.read<MapaBloc>().cierraMapa();
     super.dispose();
   }
-**/
+
   @override
   Widget build(BuildContext context) {
-    final Punto _punto = ModalRoute.of(context).settings.arguments;
+    final bloc = Get.find<InputController>();
+    final Punto _punto = bloc.punto;
     return Scaffold(
       body: BlocBuilder<UbicacionBloc, UbicacionState>(
           builder: (_, state) => crearMapa(state, _punto)),
@@ -43,8 +48,14 @@ class _MapaPuntoState extends State<MapaPunto> {
   Widget crearMapa(UbicacionState state, Punto punto) {
     Set<Marker> markers = new Set<Marker>();
     Set<Polyline> ruta = new Set<Polyline>();
+    final mapaBloc = BlocProvider.of<MapaBloc>(context);
+
     markers.add(new Marker(
-        markerId: MarkerId('geo-location'), position: punto.getLatLng()));
+        markerId: MarkerId('geo-location'),
+        position: punto.getLatLng(),
+        infoWindow: InfoWindow(
+          title: '20 metros euca',
+        )));
 
     if (!punto.getRutas().isEmpty) {
       ruta.add(Polyline(
@@ -57,8 +68,6 @@ class _MapaPuntoState extends State<MapaPunto> {
 
     if (!state.existeUbicacion) return Center(child: Text('Ubicando...'));
 
-    final mapaBloc = BlocProvider.of<MapaBloc>(context);
-
     final cameraPosition =
         new CameraPosition(target: state.ubicacion, zoom: 15);
     final mapa = GoogleMap(
@@ -69,7 +78,6 @@ class _MapaPuntoState extends State<MapaPunto> {
       zoomControlsEnabled: false,
       onMapCreated: mapaBloc.initMapa,
       mapType: MapType.hybrid,
-
     );
 
     return mapa;
