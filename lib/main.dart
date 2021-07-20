@@ -5,12 +5,10 @@ import 'package:agenda_puntos/src/pages/nuevo_punto_page.dart';
 import 'package:agenda_puntos/src/pages/puntos_pages.dart';
 import 'package:agenda_puntos/src/preferencias/preferencias.dart';
 import 'package:agenda_puntos/src/preferencias/punto_provider_db.dart';
-import 'package:agenda_puntos/src/provider/nuevo_punto/input_provider.dart';
-import 'package:agenda_puntos/src/provider/punto_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:provider/provider.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,22 +29,19 @@ class MyApp extends StatelessWidget {
             providers: [
               //ChangeNotifierProvider(create: (BuildContext context) => new InputPuntoProvider()),
               ChangeNotifierProvider(create: (_) => new PuntoProviderDb()),
-
             ],
-            child: MaterialApp(
+            child: GetMaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Gestion Puntos',
               initialRoute: 'puntos',
-              routes: {
-                'puntos': (BuildContext context) => PuntosPage(),
-                'mapa_punto': (BuildContext context) => MapaPunto(),
-                'nuevo_punto': (BuildContext context) => NvoPuntoPage()
-              },
+              getPages: [
+                GetPage(name: 'puntos', page: () => PuntosPage()),
+                GetPage(name: 'mapa_punto', page: () => MapaPunto()),
+                GetPage(name: 'nuevo_punto', page: () => NvoPuntoPage())
+              ],
               theme: ThemeData(
                 primaryColor: Colors.blueAccent,
               ),
             )));
   }
 }
-
-

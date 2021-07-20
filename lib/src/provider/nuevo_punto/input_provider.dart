@@ -1,9 +1,6 @@
 import 'dart:async';
 
-import 'package:agenda_puntos/src/model/punto.dart';
-import 'package:agenda_puntos/src/model/punto_db.dart';
-import 'package:agenda_puntos/src/provider/nuevo_punto/validador.dart';
-
+import 'package:agenda_puntos/src/controler/validador.dart';
 import 'package:rxdart/rxdart.dart';
 
 class InputPuntoProvider   with Validador {
@@ -24,7 +21,7 @@ class InputPuntoProvider   with Validador {
   Stream<String> get nombreStream => _nombreController.stream.transform(validarTexto);
   Stream<String> get ubicacionStream => _ubicacionController.stream.transform(validarTexto);
   Stream<String> get tipoStream =>_tipoController.stream.transform(validarTexto);
-  Stream<double> get cantidadStream => _cantidadController.stream.transform(validarCantidad);
+ 
   Stream<String> get valorStream => _valorController.stream.transform(validarValor);
   Stream<String> get abonoStream => _abonoController.stream;
   Stream<String> get observacionesStream => _observacionesController.stream;

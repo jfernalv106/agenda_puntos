@@ -5,22 +5,20 @@ class ProviderInput extends InheritedWidget {
   static ProviderInput _instancia;
   final bloc = InputPuntoProvider();
 
-  factory ProviderInput({ Key key, Widget child }) {
-
-    if ( _instancia == null ) {
-      _instancia = new ProviderInput._internal(key: key, child: child );
+  factory ProviderInput({Key key, Widget child}) {
+    if (_instancia == null) {
+      _instancia = new ProviderInput._internal(key: key, child: child);
     }
 
     return _instancia;
-
   }
-  ProviderInput._internal({ Key key, Widget child })
-      : super(key: key, child: child );
+  ProviderInput._internal({Key key, Widget child})
+      : super(key: key, child: child);
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 
-  static InputPuntoProvider of ( BuildContext context ) {
-    return ( context.inheritFromWidgetOfExactType(ProviderInput) as ProviderInput ).bloc;
+  static ProviderInput of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<ProviderInput>();
   }
 }

@@ -1,6 +1,4 @@
-import 'package:agenda_puntos/src/model/punto.dart';
 import 'package:agenda_puntos/src/provider/punto_provider.dart';
-import 'package:agenda_puntos/src/widget/card_fotos.dart';
 import 'package:agenda_puntos/src/widget/card_puntos.dart';
 import 'package:agenda_puntos/src/widget/menu_lateral.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +6,10 @@ import 'package:flutter/material.dart';
 class PuntosPage extends StatelessWidget {
   final puntoProvider = new PuntoProvider();
 
-
-
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(child: Scaffold(
+    return SafeArea(
+        child: Scaffold(
       appBar: AppBar(
         title: Text('Puntos'),
         backgroundColor: Color.fromRGBO(17, 66, 0, 0.788235294117647),
@@ -27,7 +24,6 @@ class PuntosPage extends StatelessWidget {
         ),
       ),
     ));
-
   }
 
   Widget _swiperTarjeta() {

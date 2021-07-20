@@ -83,7 +83,8 @@ class CardPuntos extends StatelessWidget {
                       )
                     ],
                   ),
-                  Text('pagado por metro: \$${punto.valorMetro}',
+                  Text(
+                      'pagado por metro: \$${Util.numberFormat(punto.valorMetro.toDouble())}',
                       style: _textStyle),
                   Row(
                     children: <Widget>[
@@ -98,13 +99,15 @@ class CardPuntos extends StatelessWidget {
                   ),
                   Row(
                     children: <Widget>[
-                  Text('valor total: \$${punto.getTotalValor()}',
-                      style: _textStyle),
+                      Text(
+                          'valor total: \$${Util.numberFormat(punto.getTotalValor().toDouble())}',
+                          style: _textStyle),
                       SizedBox(
                         width: 12,
                       ),
-                  Text('Abono: \$${punto.pagado ?? ''}', style: _textStyle),
-
+                      Text(
+                          'Abono: \$${Util.numberFormat(punto.pagado.toDouble() ?? 0.0)}',
+                          style: _textStyle),
                     ],
                   ),
                   Text('Observaciones: ${punto.observaciones ?? ''}',

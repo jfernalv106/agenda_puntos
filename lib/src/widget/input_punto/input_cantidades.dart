@@ -1,26 +1,20 @@
-import 'package:agenda_puntos/src/provider/nuevo_punto/input_provider.dart';
-import 'package:agenda_puntos/src/provider/nuevo_punto/provider_input.dart';
+import 'package:agenda_puntos/src/controler/input_punto_controller.dart';
+import 'package:agenda_puntos/src/util/util.dart' as Util;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-import 'package:agenda_puntos/src/util/util.dart' as Util;
+import 'package:get/get.dart';
 
 class InputCantidades extends StatefulWidget {
-  final InputPuntoProvider bloc;
-  InputCantidades({@required this.bloc});
   @override
-  _InputCantidadesState createState() => _InputCantidadesState(bloc: this.bloc);
+  _InputCantidadesState createState() => _InputCantidadesState();
 }
 
 class _InputCantidadesState extends State<InputCantidades> {
-  final InputPuntoProvider bloc;
-  _InputCantidadesState({@required this.bloc});
   final textController = TextEditingController();
-  List<double> cantidades = new List();
 
   @override
   Widget build(BuildContext context) {
-    final bloc = ProviderInput.of(context);
+    final bloc = Get.find<InputController>();
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -59,12 +53,11 @@ class _InputCantidadesState extends State<InputCantidades> {
                       onPressed: () {
                         setState(() {
                           print(bloc.cantidad);
-                          if (bloc.cantidad > 0.0) {
-                            cantidades.add(bloc.cantidad);
-                            bloc.changeCantidades(cantidades);
+                          if (bloc.cantidad > 0.toDouble()) {
+                            bloc.addCantidades(bloc.cantidad);
                           }
                           textController.clear();
-                          bloc.changeCantidad(0.0);
+                          bloc.changeCantidad(0.toDouble());
                         });
                       })),
             ],
@@ -88,7 +81,7 @@ class _InputCantidadesState extends State<InputCantidades> {
     );
   }
 
-  Widget lista(InputPuntoProvider bloc) {
+  Widget lista(InputController bloc) {
     if (bloc.cantidades == null) {
       bloc.changeCantidades(List());
     }
@@ -99,7 +92,7 @@ class _InputCantidadesState extends State<InputCantidades> {
     );
   }
 
-  Widget _items(double it, InputPuntoProvider bloc) {
+  Widget _items(double it, InputController bloc) {
     final valor = num.tryParse(bloc.valor ?? '1');
     return Container(
       alignment: Alignment.center,
@@ -140,7 +133,7 @@ class _InputCantidadesState extends State<InputCantidades> {
     );
   }
 
-  String valorTotal(InputPuntoProvider bloc) {
+  String valorTotal(InputController bloc) {
     int valor = num.tryParse(bloc.valor ?? '1');
     double total = num.tryParse('0.0');
     for (double c in bloc.cantidades) {

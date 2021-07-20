@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:agenda_puntos/src/model/punto.dart';
 import 'package:agenda_puntos/src/model/respuesta.dart';
+import 'package:agenda_puntos/src/util/constantes.dart' as cons;
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
-import 'package:agenda_puntos/src/util/constantes.dart' as cons;
 
 class PuntoProvider {
   List<Punto> _puntos = new List();
